@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ivy | Web Design, SEO Writing, Marketing & AI Automation</title>
+<style>
+:root{--bg:#ffffff;--surface:#f2f8f4;--text:#0f3d2a;--muted:#4a6b5b;--accent:#14532d;--accent-text:#ffffff;--border:#d3e5da;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b2a1d;--surface:#103624;--text:#ffffff;--muted:#bcd6c8;--accent:#ffffff;--accent-text:#0b2a1d;--border:#1f4a35}}
+:root[data-theme="dark"]{--bg:#0b2a1d;--surface:#103624;--text:#ffffff;--muted:#bcd6c8;--accent:#ffffff;--accent-text:#0b2a1d;--border:#1f4a35}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,"Times New Roman",serif;line-height:1.6}
+h1,h2,h3,nav,button,.tag,label,input,select,textarea{font-family:"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--border);z-index:5}
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+nav b{font-size:1.15rem;letter-spacing:.02em}
+nav a.btn{padding:8px 16px;font-size:.9rem}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-text);padding:13px 24px;border-radius:999px;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:1rem}
+.btn.alt{background:transparent;color:var(--text);border:1px solid var(--border)}
+.hero{padding:64px 0 48px}
+.tag{display:inline-block;font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700}
+h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.12;margin:12px 0 16px}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:620px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+section{padding:48px 0;border-top:1px solid var(--border)}
+h2{font-size:1.7rem;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+.card h3{margin:0 0 8px;font-size:1.1rem}
+.card p{margin:0 0 12px;color:var(--muted);font-size:.97rem}
+.card ul{margin:0;padding-left:18px;font-size:.93rem}
+.steps{counter-reset:s;display:grid;gap:14px}
+.steps div{display:flex;gap:14px;align-items:flex-start}
+.steps div::before{counter-increment:s;content:counter(s);flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-text);display:grid;place-items:center;font-family:Arial,sans-serif;font-weight:700}
+.steps p{margin:0;color:var(--muted)}.steps strong{color:var(--text)}
+form{display:grid;gap:14px;max-width:560px}
+label{font-size:.9rem;font-weight:600;display:grid;gap:6px}
+input,select,textarea{font-size:1rem;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);width:100%}
+#msg{color:var(--muted);font-family:Arial,sans-serif;font-size:.92rem;min-height:1.4em}
+footer{padding:32px 0;border-top:1px solid var(--border);color:var(--muted);font-size:.9rem;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav><b>Ivy</b><a class="btn" href="#contact">Hire me</a></nav></div></header>
+
+<main>
+<div class="wrap">
+<div class="hero">
+<span class="tag">Freelancer · Philippines · Working worldwide</span>
+<h1>Websites, content and automation that bring in clients.</h1>
+<p>I help freelancers, solopreneurs and small businesses get found online, look professional, and save hours every week with smart AI workflows.</p>
+<div class="cta"><a class="btn" href="#contact">Get a free quote</a><a class="btn alt" href="#services">See services</a></div>
+</div>
+
+<section id="services">
+<h2>What I can do for you</h2>
+<div class="grid">
+<div class="card"><h3>Web Design</h3><p>Clean, fast, mobile-friendly sites built to convert visitors into customers.</p><ul><li>Landing pages and portfolios</li><li>Service and business sites</li><li>Basic SEO setup</li></ul></div>
+</div>
+</section>
+
+<section id="process">
+<h2>How it works</h2>
+<div class="steps">
+<div><p><strong>Tell me what you need.</strong> Send a short message about your goals and timeline.</p></div>
+<div><p><strong>Get a clear quote.</strong> You receive scope, price and delivery date before any work starts.</p></div>
+<div><p><strong>I build it.</strong> You review progress and request revisions along the way.</p></div>
+<div><p><strong>Launch and support.</strong> I hand everything over and stay available for questions.</p></div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Request a quote</h2>
+<form id="f">
+<label>Your name<input id="n" required></label>
+<label>Email<input id="e" type="email" required></label>
+<label>Service<select id="s"><option>Web Design</option><option>Not sure yet</option></select></label>
+<label>Tell me about your project<textarea id="d" rows="4" required></textarea></label>
+<button class="btn" type="submit">Send inquiry</button>
+<div id="msg" role="status"></div>
+</form>
+</section>
+</div>
+</main>
+<footer><div class="wrap">© Ivy · Antipolo City, Philippines</div></footer>
+
+<script>
+// Set your email below so inquiries open in the visitor’s email app.
+var EMAIL="";
+document.getElementById("f").addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var t="Hi Ivy, I’m "+n.value+" ("+e.value+").\nService: "+s.value+"\n\n"+d.value;
+  var m=document.getElementById("msg");
+  if(EMAIL){location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Quote request: "+s.value)+"&body="+encodeURIComponent(t);m.textContent="Opening your email app…";return;}
+  try{navigator.clipboard.writeText(t);m.textContent="Inquiry copied. Paste it into a message to Ivy.";}
+  catch(x){m.textContent="Please copy your details and send them to Ivy directly.";}
+});
+</script>
+</body>
+</html>
