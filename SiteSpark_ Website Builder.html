@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SiteSpark: Free Website Builder</title>
+<style>
+:root{--bg:#f6f4ff;--surface:#fff;--text:#1d1a2b;--muted:#6a6580;--accent:#6d4aff;--accent-text:#fff;--border:#e2ddf5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13111d;--surface:#1c1929;--text:#f1eefc;--muted:#a9a3c4;--accent:#9b82ff;--accent-text:#13111d;--border:#322d49}}
+:root[data-theme="dark"]{--bg:#13111d;--surface:#1c1929;--text:#f1eefc;--muted:#a9a3c4;--accent:#9b82ff;--accent-text:#13111d;--border:#322d49}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+header{padding:20px;max-width:1100px;margin:0 auto}
+header h1{margin:0;font-size:1.6rem}header p{margin:4px 0 0;color:var(--muted)}
+main{max-width:1100px;margin:0 auto;padding:0 20px 40px;display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:820px){main{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;display:grid;gap:12px}
+label{font-size:.85rem;font-weight:600;display:grid;gap:5px}
+input,select,textarea{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);width:100%}
+input[type=color]{padding:2px;height:42px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{background:var(--accent);color:var(--accent-text);border:0;border-radius:999px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer}
+.btn.alt{background:transparent;color:var(--text);border:1px solid var(--border)}
+.tpl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tpl button{border:2px solid var(--border);background:var(--bg);color:var(--text);border-radius:12px;padding:10px 4px;font:inherit;font-size:.85rem;cursor:pointer}
+.tpl button.on{border-color:var(--accent);background:var(--surface);font-weight:700}
+.frame{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface)}
+.frame .bar{padding:8px 14px;font-size:.8rem;color:var(--muted);border-bottom:1px solid var(--border)}
+iframe{width:100%;height:560px;border:0;display:block;background:#fff}
+#note{font-size:.88rem;color:var(--muted);min-height:1.3em}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+small{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><h1>SiteSpark</h1><p>Build a personal website in minutes. No coding needed.</p></header>
+<main>
+<div class="panel">
+<div class="tpl" id="tpl">
+<button data-t="portfolio" class="on">Portfolio</button>
+<button data-t="links">Link in bio</button>
+<button data-t="invite">Invitation</button>
+</div>
+<label>Title or name<input id="title" value="Hi, I’m Ivy"></label>
+<label>Tagline<input id="tag" value="Writer, designer and creative builder"></label>
+<label>About or message<textarea id="about" rows="4">I make simple, beautiful things on the web. Take a look around and say hello.</textarea></label>
+<label>Links <small>(one per line: Label | https://link)</small><textarea id="links" rows="3">My work | https://example.com
+Contact me | https://example.com/contact</textarea></label>
+<div class="row">
+<label>Accent color<input id="acc" type="color" value="#6d4aff"></label>
+<label>Look<select id="mode"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+</div>
+<label>Font<select id="font"><option value="Georgia,serif">Classic serif</option><option value="'Helvetica Neue',Arial,sans-serif" selected>Clean sans</option><option value="'Courier New',monospace">Typewriter</option></select></label>
+</div>
+<div>
+<div class="frame"><div class="bar">Live preview</div><iframe id="pv" sandbox title="Preview"></iframe></div>
+<div class="actions">
+<button class="btn" id="copy">Copy website code</button>
+<button class="btn alt" id="open">Open full preview</button>
+</div>
+<p id="note" role="status"></p>
+<p><small>To publish: paste the copied code into a file named index.html and upload it to any free host such as Netlify Drop or GitHub Pages.</small></p>
+</div>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)},tpl="portfolio";
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function build(){
+  var dark=$("mode").value==="dark",bg=dark?"#14121c":"#fbfaff",fg=dark?"#f3f0fa":"#1e1b2b",mu=dark?"#b0aac4":"#6b6680",card=dark?"#201d2d":"#ffffff",ac=$("acc").value;
+  var links=$("links").value.split("\n").map(function(l){var p=l.split("|");return{t:(p[0]||"").trim(),u:(p.slice(1).join("|")||"").trim()}}).filter(function(x){return x.t&&/^https?:\/\//i.test(x.u)});
+  var lh=links.map(function(l){return'<a class="b" href="'+esc(l.u)+'" target="_blank" rel="noopener">'+esc(l.t)+'</a>'}).join("");
+  var center=tpl!=="portfolio";
+  var css="*{box-sizing:border-box}body{margin:0;background:"+bg+";color:"+fg+";font-family:"+$("font").value+";line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 20px}"+
+  ".c{max-width:"+(center?"440px":"640px")+";width:100%;text-align:"+(center?"center":"left")+"}"+
+  (tpl==="links"?".c{background:"+card+";border-radius:24px;padding:32px 24px;box-shadow:0 8px 30px rgba(0,0,0,.08)}.av{width:84px;height:84px;border-radius:50%;background:"+ac+";margin:0 auto 16px;display:grid;place-items:center;color:#fff;font-size:2rem;font-weight:700}":"")+
+  (tpl==="invite"?".c{border:3px double "+ac+";border-radius:20px;padding:40px 24px}.k{letter-spacing:.2em;text-transform:uppercase;font-size:.75rem;color:"+ac+";margin-bottom:12px}":"")+
+  "h1{font-size:"+(tpl==="invite"?"2.6rem":"2.2rem")+";line-height:1.15;margin:0 0 8px}.t{color:"+ac+";font-weight:700;margin:0 0 20px}p.a{color:"+mu+";margin:0 0 24px;white-space:pre-line}"+
+  ".l{display:grid;gap:10px}.b{display:block;text-align:center;background:"+ac+";color:#fff;text-decoration:none;padding:13px 20px;border-radius:999px;font-weight:600}";
+  var ini=esc(($("title").value.replace(/^hi,?\s*(i[’']m\s*)?/i,"").trim()||"S").charAt(0).toUpperCase());
+  var body='<div class="c">'+(tpl==="links"?'<div class="av">'+ini+'</div>':"")+(tpl==="invite"?'<div class="k">You’re invited</div>':"")+
+    "<h1>"+esc($("title").value)+'</h1><p class="t">'+esc($("tag").value)+'</p><p class="a">'+esc($("about").value)+'</p><div class="l">'+lh+"</div></div>";
+  return'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc($("title").value)+"</title><style>"+css+"</style></head><body>"+body+"</body></html>";
+}
+function upd(){$("pv").srcdoc=build()}
+["title","tag","about","links","acc","mode","font"].forEach(function(i){$(i).addEventListener("input",upd)});
+$("tpl").addEventListener("click",function(e){var t=e.target.dataset.t;if(!t)return;tpl=t;[].forEach.call($("tpl").children,function(b){b.classList.toggle("on",b.dataset.t===t)});upd()});
+$("copy").onclick=function(){var n=$("note");try{navigator.clipboard.writeText(build());n.textContent="Copied. Paste it into a file named index.html."}catch(x){n.textContent="Copy failed. Try again or use a different browser."}};
+$("open").onclick=function(){var w=window.open("","_blank");if(w){w.document.write(build());w.document.close()}else{$("note").textContent="Your browser blocked the new tab."}};
+upd();
+</script>
+</body>
+</html>
